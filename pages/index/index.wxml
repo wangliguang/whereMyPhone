@@ -1,6 +1,12 @@
 <!--index.wxml-->
-<view>
+<view wx:if='{{isLogin}}'>
  <view class='cell' wx:for="{{dataArray}}" wx:key="index" wx:for-index="index"  wx:for-item="item" >
     <text>{{item.name}}</text>
+    <text>{{item.owner}}</text>
+    <view class='line'/>
  </view>
+</view>
+
+<view class='getUserInfo' wx:else>
+  <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取信息 </button>
 </view>

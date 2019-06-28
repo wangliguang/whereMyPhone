@@ -1,6 +1,20 @@
 /**index.wxss**/
 
+.getUserInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
 .cell {
   width: 100vw;
   height: 80px;
+  display: flex;
+  flex-direction: column;
+  border-bottom-color: gray;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
 }
+

@@ -1,5 +1,5 @@
 // pages/my/index.js
-
+const app = getApp();
 import REQUEST from '../../utils/request.js';
 
 Page({
@@ -18,7 +18,10 @@ Page({
   },
 
   onSubmit: function() {
-    REQUEST('addPhone', { name: this.data.name }).then( data => {
+    REQUEST('addPhone', { 
+      name: this.data.name,
+      owner: app.globalData.userInfo.nickName,
+    }).then( data => {
       wx.showToast({
         title: data,
         icon: 'none',

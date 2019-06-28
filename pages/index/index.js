@@ -6,22 +6,23 @@ import REQUEST from '../../utils/request.js';
 Page({
   data: {
    dataArray: [],
+   isLogin: true,
   },
 
   onLoad: function() {
-
-    const isLogin = wx.getStorageSync('isLogin');
-    
-    if (!isLogin) {
-      console.log(isLogin);
-      wx.switchTab({
-        url: '/pages/my/index',
-      });
-    }
+    const userInfo = wx.getStorageSync('userInfo');
+    app.globalData.userInfo = userInfo;
+    this.setData({ isLogin: userInfo ? true : false });
 
     REQUEST('getPhoneList').then((data) => {
       this.setData({ dataArray: data });
     })
-  }
+  },
 
+  getUserInfo: function (e) {
+    const { userInfo } = e.detail;
+    app.globalData.userInfo = userInfo;
+    wx.setStorageSync('userInfo', userInfo);
+    this.setData({ isLogin: true });
+  }
 })
