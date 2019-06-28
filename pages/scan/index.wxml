@@ -1,2 +1,9 @@
 <!--pages/scan/index.wxml-->
+<view>
+ <view wx:for="{{dataArray}}" wx:key="index" wx:for-index="index"  wx:for-item="item" >
+    <text>{{item.name}}</text>
+    <view class='line'/>
+ </view>
+</view>
+
 <i-button class='submitBtn' bind:click="onGetPhone" type="primary">领取手机</i-button>
