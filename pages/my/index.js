@@ -1,11 +1,29 @@
 // pages/my/index.js
+
+import REQUEST from '../../utils/request.js';
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    name: '333',
+  },
 
+  onNameChange: function(e) {
+    this.setData({
+      name: e.detail.detail.value,
+    });
+  },
+
+  onSubmit: function() {
+    REQUEST('addPhone', { name: this.data.name }).then( data => {
+      wx.showToast({
+        title: data,
+        icon: 'none',
+      })
+    })
   },
 
   /**
