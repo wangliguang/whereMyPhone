@@ -13,7 +13,9 @@ Page({
     const userInfo = wx.getStorageSync('userInfo');
     app.globalData.userInfo = userInfo;
     this.setData({ isLogin: userInfo ? true : false });
+  },
 
+  onShow: function() {
     REQUEST('getPhoneList').then((data) => {
       this.setData({ dataArray: data });
     })

@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "i-button": "../../components/dist/button/index"
+  }
 }

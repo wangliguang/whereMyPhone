@@ -1,2 +1,2 @@
 <!--pages/scan/index.wxml-->
-<text>pages/scan/index.wxml</text>
+<i-button class='submitBtn' bind:click="onGetPhone" type="primary">领取手机</i-button>

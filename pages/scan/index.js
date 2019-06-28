@@ -1,4 +1,5 @@
 // pages/scan/index.js
+import REQUEST from '../../utils/request.js';
 Page({
 
   /**
@@ -8,11 +9,31 @@ Page({
 
   },
 
+  onGetPhone: function() {
+    wx.scanCode({
+      onlyFromCamera: true,
+      success: function (data) {
+        REQUEST('getPhone', {
+          id: data.result,
+          owner: getApp().globalData.userInfo.nickName,
+        }).then(() => {
+          wx.showToast({
+            title: '领取成功',
+          })
+        })
+        
+      },
+      fail: function (err) {
+        console.log(err);
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**
