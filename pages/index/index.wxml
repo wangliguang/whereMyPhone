@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view wx:if='{{isLogin}}'>
  <view class='cell' wx:for="{{dataArray}}" wx:key="index" wx:for-index="index"  wx:for-item="item" >
-    <text>{{item.name}}</text>
+    <text>{{item.model}}</text>
     <text>{{item.owner}}</text>
     <view class='line'/>
  </view>

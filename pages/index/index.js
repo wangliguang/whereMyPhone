@@ -1,7 +1,8 @@
 //index.js
 //获取应用实例
 const app = getApp()
-import REQUEST from '../../utils/request.js';
+import BMOB from '../../utils/bmob.js';
+
 
 Page({
   data: {
@@ -16,9 +17,11 @@ Page({
   },
 
   onShow: function() {
-    REQUEST('getPhoneList').then((data) => {
-      this.setData({ dataArray: data });
-    })
+    BMOB.Query('t_phone').find().then(res => {
+      this.setData({
+        dataArray: res,
+      });
+    });
   },
 
   getUserInfo: function (e) {

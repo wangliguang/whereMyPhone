@@ -1,5 +1,4 @@
 // pages/scan/index.js
-import REQUEST from '../../utils/request.js';
 Page({
 
   /**
@@ -13,18 +12,27 @@ Page({
     wx.scanCode({
       onlyFromCamera: true,
       success: function (data) {
-        REQUEST('getPhone', {
-          id: data.result,
-          owner: getApp().globalData.userInfo.nickName,
+        const query = Bmob.Query('t_phone');
+        query.set('id', data.result) 
+        query.set('owner', getApp().globalData.userInfo.nickNam)
+        query.save().then(res => {
+          query.equalTo("owner", "==", getApp().globalData.userInfo.nickNam);
+          return query.find()
         }).then(() => {
+          
+        }).catch(err => {
           wx.showToast({
-            title: '领取成功',
+            title: '',
+            icon: 'none',
           })
         })
         
       },
       fail: function (err) {
-        console.log(err);
+        wx.showToast({
+          title: '扫描失败',
+          icon: 'none',
+        })
       }
     })
   },

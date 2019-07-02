@@ -1,6 +1,6 @@
 // pages/my/index.js
 const app = getApp();
-import REQUEST from '../../utils/request.js';
+import BMOB from '../../utils/bmob.js';
 
 Page({
 
@@ -18,15 +18,20 @@ Page({
   },
 
   onSubmit: function() {
-    REQUEST('addPhone', { 
-      name: this.data.name,
-      owner: app.globalData.userInfo.nickName,
-    }).then( data => {
+    const query = BMOB.Query('t_phone');
+    query.set("name", this.data.name)
+    query.set("owner", app.globalData.userInfo.nickName)
+    query.save().then(res => {
       wx.showToast({
-        title: data,
+        title: '发布成功',
         icon: 'none',
       })
-    })
+    }).catch(err => {
+      wx.showToast({
+        title: err.message,
+        icon: 'none',
+      })
+    });
   },
 
   /**
