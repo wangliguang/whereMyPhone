@@ -3,7 +3,7 @@
     "pages/index/index",
     "pages/scan/index",
     "pages/my/index",
-    "pages/userInfo/index"
+    "pages/addDevice/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

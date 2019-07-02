@@ -1,4 +1,1 @@
-<!--pages/my/index.wxml-->
-<i-input bind:change='onNameChange' value="{{ name }}" title="型号" autofocus placeholder="手机型号" />
 
-<i-button class='submitBtn' bind:click="onSubmit" type="primary">提交</i-button>
