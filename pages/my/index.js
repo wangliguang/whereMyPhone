@@ -19,7 +19,7 @@ Page({
 
   onSubmit: function() {
     const query = BMOB.Query('t_phone');
-    query.set("name", this.data.name)
+    query.set("model", this.data.name)
     query.set("owner", app.globalData.userInfo.nickName)
     query.save().then(res => {
       wx.showToast({

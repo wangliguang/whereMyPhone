@@ -1,4 +1,6 @@
 // pages/scan/index.js
+import BMOB from '../../utils/bmob.js';
+
 Page({
 
   /**
@@ -12,14 +14,11 @@ Page({
     wx.scanCode({
       onlyFromCamera: true,
       success: function (data) {
-        const query = Bmob.Query('t_phone');
+        const query = BMOB.Query('t_phone');
         query.set('id', data.result) 
         query.set('owner', getApp().globalData.userInfo.nickNam)
         query.save().then(res => {
-          query.equalTo("owner", "==", getApp().globalData.userInfo.nickNam);
-          return query.find()
-        }).then(() => {
-          
+          this.onShow();
         }).catch(err => {
           wx.showToast({
             title: '',
@@ -42,13 +41,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    REQUEST('myPhone', {
-      owner: getApp().globalData.userInfo.nickName,
-    }).then((data) => {
+    const query = BMOB.Query('t_phone');
+    query.set('owner', getApp().globalData.userInfo.nickName)
+    query.find().then(data => {
       this.setData({
         dataArray: data,
       });
-    })
+    }).catch((err) => {
+      wx.showToast({
+        title: err.message,
+      })
+    });
   },
 
   

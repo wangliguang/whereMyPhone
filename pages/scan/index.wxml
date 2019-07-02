@@ -1,7 +1,7 @@
 <!--pages/scan/index.wxml-->
 <view>
  <view wx:for="{{dataArray}}" wx:key="index" wx:for-index="index"  wx:for-item="item" >
-    <text>{{item.name}}</text>
+    <text>{{item.model}}</text>
     <view class='line'/>
  </view>
 </view>
