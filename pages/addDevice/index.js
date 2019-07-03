@@ -1,5 +1,4 @@
 // pages/my/index.js
-const app = getApp();
 import BMOB from '../../utils/bmob.js';
 
 Page({
@@ -8,85 +7,76 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name: '333',
+    platform: '',
+    model: '',
+    system: '',
+    note: '',
   },
 
-  onNameChange: function(e) {
+  onLoad: function(options) {
+    this.uid = options.uid;
+    this.nickName = wx.getStorageSync('userInfo').nickName;
+  },
+
+  onPlatformChange: function(e) {
     this.setData({
-      name: e.detail.detail.value,
+      platform: e.detail.detail.value,
+    });
+  },
+  onModelChange: function (e) {
+    this.setData({
+      model: e.detail.detail.value,
+    });
+  },
+  onSystemChange: function (e) {
+    this.setData({
+      system: e.detail.detail.value,
+    });
+  },
+  onNoteChange: function (e) {
+    this.setData({
+      note: e.detail.detail.value,
     });
   },
 
   onSubmit: function() {
+    if (this.data.platform.length == 0 || this.data.model.length == 0 || this.data.system.length == 0) {
+      wx.showToast({
+        title: '请完善信息',
+        icon: 'none',
+      })
+      return;
+    }
+
     const query = BMOB.Query('t_phone');
-    query.set("model", this.data.name)
-    query.set("owner", app.globalData.userInfo.nickName)
-    query.save().then(res => {
-      wx.showToast({
-        title: '发布成功',
-        icon: 'none',
-      })
-    }).catch(err => {
-      wx.showToast({
-        title: err.message,
-        icon: 'none',
-      })
+    query.equalTo("uid", '==', this.uid);
+    query.find().then(result => {
+      console.log('result', result);
+      if (result.length != 0) {
+        this.changeOwner(result[0].objectId);
+        return;
+      }
+      this.savePhone();
     });
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  savePhone: function () {
+    const query = BMOB.Query('t_phone');
+    query.set("platform", String(this.data.platform));
+    query.set("model", String(this.data.model));
+    query.set("system", String(this.data.system));
+    query.set("note", String(this.data.note));
+    query.set('uid', this.uid);
+    query.set("owner", this.nickName)
+    query.save().then(res => {
+      wx.showToast({
+        title: '该设备添加成功',
+        icon: 'none',
+        duration: 1000,
+      });
+      setTimeout(wx.navigateBack, 1000);
+    }).catch(err => {
+      console.error(err);
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

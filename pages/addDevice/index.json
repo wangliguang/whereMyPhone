@@ -1,7 +1,11 @@
 {
+  "navigationBarTitleText": "补充设备信息",
   "usingComponents": {
     "i-panel": "../../components/dist/panel/index",
     "i-input": "../../components/dist/input/index",
-    "i-button": "../../components/dist/button/index"
+    "i-button": "../../components/dist/button/index",
+    "i-radio-group": "../../components/dist/radio-group/index",
+    "i-radio": "../../components/dist/radio/index"
+    
   }
 }

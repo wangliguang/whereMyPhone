@@ -14,19 +14,8 @@ Page({
     wx.scanCode({
       onlyFromCamera: false,
       success: (data) => {
-        let deviceInfo = {};
-        try {
-          deviceInfo = JSON.parse(data.result);
-        } catch(err) {
-          wx.showToast({
-            title: '二维码格式错误',
-            icon: 'none',
-          })
-          return;
-        }
-        
-        
-        if (deviceInfo.from != 'gg') {
+        const resultArr = data.result.split('=');
+        if (resultArr[0] != 'gg') {
           wx.showToast({
             title: '二维码格式错误',
             icon: 'none',
@@ -35,15 +24,25 @@ Page({
         }
 
         const query = BMOB.Query('t_phone');
-        query.equalTo("model", '==', deviceInfo.model)
+        query.equalTo("uid", '==', resultArr[1]);
         query.find().then(result => {
+          console.log(result.length);
           if (result.length != 0) {
-            this.changeOwner(result[0].objectId);
-           return;
-         } 
-          this.savePhone(deviceInfo);
-        })
-        
+            if (result[0].owner == this.data.nickName) {
+              wx.showToast({
+                title: '已拥有改设备，不可重复领取',
+                icon: 'none',
+              })
+            } else {
+              this.changeOwner(result[0].objectId);
+            }
+            return;
+          }
+          
+          wx.navigateTo({
+            url: `/pages/addDevice/index?uid=${resultArr[1]}`,
+          })
+        });
       },
       fail: function (err) {
         wx.showToast({
@@ -54,43 +53,20 @@ Page({
     })
   },
 
-  changeOwner: function(objectId) {
+  changeOwner: function (objectId) {
+    console.log('77777');
     const query = BMOB.Query('t_phone');
-    
     query.set('id', objectId);
     query.set('owner', this.data.nickName)
     query.save().then(res => {
-      this.onShow();
       wx.showToast({
-        title: '已领取该设备',
+        title: '领取成功',
         icon: 'none',
       })
     }).catch(err => {
       console.error(err)
     })
   },
-
-  savePhone: function(deviceInfo) {
-    const query = BMOB.Query('t_phone');
-    query.set('model', deviceInfo.model);
-    query.set('system', deviceInfo.system);
-    query.set('owner', this.data.nickName);    
-
-    query.save().then(res => {
-      wx.showToast({
-        title: '该测试机添加成功',
-        icon: 'none',
-      })
-      this.onShow();
-    }).catch(err => {
-      console.log(err);
-      wx.showToast({
-        title: err.code === 401 ? '已拥有该测试机' : err.error,
-        icon: 'none',
-      })
-    })
-  },
-
 
   /**
    * 生命周期函数--监听页面显示

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "所有机型",
+  "navigationBarTitleText": "所有设备",
   "usingComponents": {
     "i-input": "../../components/dist/input/index",
     "i-button": "../../components/dist/button/index"
