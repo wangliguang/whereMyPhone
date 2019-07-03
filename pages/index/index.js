@@ -18,6 +18,7 @@ Page({
 
   onShow: function() {
     BMOB.Query('t_phone').find().then(res => {
+      wx.stopPullDownRefresh();
       this.setData({
         dataArray: res,
       });
@@ -44,4 +45,7 @@ Page({
       pwd
     });
   },
+  onPullDownRefresh: function() {
+    this.onShow();
+  }
 })

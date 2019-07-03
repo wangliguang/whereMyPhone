@@ -2,5 +2,6 @@
   "navigationBarTitleText": "已持有",
   "usingComponents": {
     "i-button": "../../components/dist/button/index"
-  }
+  },
+  "enablePullDownRefresh": true
 }

@@ -100,6 +100,7 @@ Page({
     const isLogin = wx.getStorageSync('isLogin') || false;
     const userInfo = wx.getStorageSync('userInfo');
     if (!isLogin || !userInfo) {
+      wx.stopPullDownRefresh();
       wx.showToast({
         title: '请到首页登录并允许获取用户信息',
         icon: 'none',
@@ -110,6 +111,7 @@ Page({
     const query = BMOB.Query('t_phone');
     query.equalTo("owner", '==', userInfo.nickName || '');
     query.find().then(data => {
+      wx.stopPullDownRefresh();
       this.setData({
         dataArray: data,
       });
@@ -119,6 +121,10 @@ Page({
       })
     });
   },
+
+  onPullDownRefresh: function () {
+    this.onShow();
+  }
 
   
 })
