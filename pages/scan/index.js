@@ -14,7 +14,17 @@ Page({
     wx.scanCode({
       onlyFromCamera: false,
       success: (data) => {
-        this.savePhone(data.result);
+        const query = BMOB.Query('t_phone');
+        query.equalTo("udid", '==', data.result)
+        query.find().then(result => {
+          console.log('3333', result);
+          if (result.length != 0) {
+            this.changeOwner(data.result, result[0].objectId);
+           return;
+         } 
+          this.savePhone(data.result);
+        })
+        
       },
       fail: function (err) {
         wx.showToast({
@@ -25,10 +35,23 @@ Page({
     })
   },
 
+  changeOwner: function(udid, objectId) {
+    console.log('data', udid)
+    const query = BMOB.Query('t_phone');
+    query.set('id', objectId);
+    query.set('owner', getApp().globalData.userInfo.nickName)
+    query.save().then(res => {
+      console.log(res);
+      wx.showToast({
+        title: '已领取该设备',
+        icon: 'none',
+      })
+    }).catch(err => {
+      console.error(err)
+    })
+  },
+
   savePhone: function(udid) {
-
-    
-
     const query = BMOB.Query('t_phone');
     query.set('udid', udid);
     query.set('owner', getApp().globalData.userInfo.nickName);
@@ -59,7 +82,7 @@ Page({
    */
   onShow: function () {
     const query = BMOB.Query('t_phone');
-    query.set('owner', getApp().globalData.userInfo.nickName)
+    query.equalTo("owner", '==', getApp().globalData.userInfo.nickName)
     query.find().then(data => {
       this.setData({
         dataArray: data,

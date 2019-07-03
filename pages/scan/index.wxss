@@ -7,7 +7,6 @@
 
 
 .cell {
-  width: 100vw;
   padding: 20px;
   display: flex;
   margin-top: 10px;
