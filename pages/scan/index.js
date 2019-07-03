@@ -14,15 +14,34 @@ Page({
     wx.scanCode({
       onlyFromCamera: false,
       success: (data) => {
+        let deviceInfo = {};
+        try {
+          deviceInfo = JSON.parse(data.result);
+        } catch(err) {
+          wx.showToast({
+            title: '二维码格式错误',
+            icon: 'none',
+          })
+          return;
+        }
+        
+        
+        if (deviceInfo.from != 'gg') {
+          wx.showToast({
+            title: '二维码格式错误',
+            icon: 'none',
+          })
+          return;
+        }
+
         const query = BMOB.Query('t_phone');
-        query.equalTo("udid", '==', data.result)
+        query.equalTo("model", '==', deviceInfo.model)
         query.find().then(result => {
-          console.log('3333', result);
           if (result.length != 0) {
-            this.changeOwner(data.result, result[0].objectId);
+            this.changeOwner(result[0].objectId);
            return;
          } 
-          this.savePhone(data.result);
+          this.savePhone(deviceInfo);
         })
         
       },
@@ -35,8 +54,7 @@ Page({
     })
   },
 
-  changeOwner: function(udid, objectId) {
-    console.log('data', udid)
+  changeOwner: function(objectId) {
     const query = BMOB.Query('t_phone');
     query.set('id', objectId);
     query.set('owner', getApp().globalData.userInfo.nickName)
@@ -51,15 +69,11 @@ Page({
     })
   },
 
-  savePhone: function(udid) {
+  savePhone: function(deviceInfo) {
     const query = BMOB.Query('t_phone');
-    query.set('udid', udid);
-    query.set('owner', getApp().globalData.userInfo.nickName);
-
-    const systemInfo = wx.getSystemInfoSync();
-    query.set('model', systemInfo.model);
-    query.set('system', systemInfo.system);
-    
+    query.set('model', deviceInfo.model);
+    query.set('system', deviceInfo.system);
+    query.set('owner', getApp().globalData.userInfo.nickName);    
 
     query.save().then(res => {
       wx.showToast({
