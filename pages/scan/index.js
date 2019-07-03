@@ -13,19 +13,8 @@ Page({
   onGetPhone: function() {
     wx.scanCode({
       onlyFromCamera: true,
-      success: function (data) {
-        const query = BMOB.Query('t_phone');
-        query.set('id', data.result) 
-        query.set('owner', getApp().globalData.userInfo.nickNam)
-        query.save().then(res => {
-          this.onShow();
-        }).catch(err => {
-          wx.showToast({
-            title: '',
-            icon: 'none',
-          })
-        })
-        
+      success: (data) => {
+        this.savePhone(data.result);
       },
       fail: function (err) {
         wx.showToast({
@@ -33,6 +22,29 @@ Page({
           icon: 'none',
         })
       }
+    })
+  },
+
+  savePhone: function(udid) {
+
+    
+
+    const query = BMOB.Query('t_phone');
+    query.set('udid', udid);
+    query.set('owner', getApp().globalData.userInfo.nickName);
+
+    const systemInfo = wx.getSystemInfoSync();
+    query.set('model', systemInfo.model);
+    query.set('system', systemInfo.system);
+    
+
+    query.save().then(res => {
+      this.onShow();
+    }).catch(err => {
+      wx.showToast({
+        title: '',
+        icon: 'none',
+      })
     })
   },
 

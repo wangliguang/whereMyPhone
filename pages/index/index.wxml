@@ -1,8 +1,10 @@
 <!--index.wxml-->
 <view wx:if='{{isLogin}}'>
  <view class='cell' wx:for="{{dataArray}}" wx:key="index" wx:for-index="index"  wx:for-item="item" >
-    <text>{{item.model}}</text>
-    <text>{{item.owner}}</text>
+    <text>型号:{{item.model}}</text>
+    <text>系统:{{item.system}}</text>
+    <text>持有人:{{item.owner}}</text>
+
     <view class='line'/>
  </view>
 </view>
