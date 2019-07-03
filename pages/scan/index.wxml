@@ -1,7 +1,8 @@
 <!--pages/scan/index.wxml-->
+<wxs src="../../utils/wxml.wxs" module="tools" />
 <view>
  <view class='cell' wx:for="{{dataArray}}" wx:key="index" wx:for-index="index"  wx:for-item="item" >
-    <text>型号：{{item.model}}</text>
+    <text>型号：{{tools.sub(item.model)}}</text>
     <text>系统：{{item.system}}</text>
  </view>
 </view>

@@ -12,9 +12,17 @@ Page({
     
     const { model, system } = wx.getSystemInfoSync();
 
+    let deviceId = wx.getStorageSync('deviceId');
+    if (!deviceId) {
+      const curTimestamp = new Date().getTime();
+      wx.setStorageSync('deviceId', curTimestamp);
+      deviceId = curTimestamp;
+    }
+    
+    
     const systemInfo = {
       from: 'gg',
-      model,
+      model: `${model}=${deviceId}`,
       system,
     }
 

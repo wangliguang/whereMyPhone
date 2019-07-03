@@ -1,0 +1,5 @@
+function sub(val) {
+  return val.split('=')[0];
+}
+
+module.exports.sub = sub;
