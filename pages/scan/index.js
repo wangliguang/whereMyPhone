@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    isLogin: false,
   },
 
   onGetPhone: function() {
@@ -106,6 +106,8 @@ Page({
         title: err.message,
       })
     });
+
+    this.setData({ isLogin: getApp().globalData.userInfo ? true : false });
   },
 
   

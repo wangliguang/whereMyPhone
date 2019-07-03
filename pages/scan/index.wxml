@@ -7,4 +7,4 @@
  </view>
 </view>
 
-<i-button class='submitBtn' bind:click="onGetPhone" type="primary">领取手机</i-button>
+<i-button disabled="{{!isLogin}}" class='submitBtn' bind:click="onGetPhone" type="primary">领取手机</i-button>
