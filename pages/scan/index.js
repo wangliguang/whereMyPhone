@@ -95,8 +95,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+
+    const isLogin = wx.getStorageSync('isLogin') || false;
+    const userInfo = wx.getStorageSync('userInfo');
+    if (!isLogin || !userInfo) {
+      wx.showToast({
+        title: '请到首页登录并允许获取用户信息',
+        icon: 'none',
+      })
+      return;
+    } 
+    this.setData({ isLogin: true });
     const query = BMOB.Query('t_phone');
-    query.equalTo("owner", '==', getApp().globalData.userInfo.nickName)
+    query.equalTo("owner", '==', userInfo.nickName || '');
     query.find().then(data => {
       this.setData({
         dataArray: data,
@@ -106,8 +117,6 @@ Page({
         title: err.message,
       })
     });
-
-    this.setData({ isLogin: getApp().globalData.userInfo ? true : false });
   },
 
   

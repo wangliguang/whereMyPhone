@@ -7,13 +7,13 @@ import BMOB from '../../utils/bmob.js';
 Page({
   data: {
    dataArray: [],
-   isLogin: true,
+   isLogin: false,
+   pwd: '',
   },
 
   onLoad: function() {
-    const userInfo = wx.getStorageSync('userInfo');
-    app.globalData.userInfo = userInfo;
-    this.setData({ isLogin: userInfo ? true : false });
+    const isLogin = wx.getStorageSync('isLogin') || false;
+    this.setData({ isLogin });
   },
 
   onShow: function() {
@@ -26,8 +26,22 @@ Page({
 
   getUserInfo: function (e) {
     const { userInfo } = e.detail;
-    app.globalData.userInfo = userInfo;
     wx.setStorageSync('userInfo', userInfo);
-    this.setData({ isLogin: true });
-  }
+    
+
+    if (this.data.pwd == '666666') {
+      wx.setStorageSync('isLogin', true);
+      this.setData({ isLogin: true });
+      wx.showToast({ title: '登录成功' });
+      return;
+    } 
+    wx.showToast({ title: '口令错误' });
+  },
+
+  onPwdChange: function(e) {
+    const pwd = e.detail.detail.value;
+    this.setData({
+      pwd
+    });
+  },
 })

@@ -11,5 +11,6 @@
 </view>
 
 <view class='getUserInfo' wx:else>
-  <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取信息 </button>
+  <i-input style='width: 70%;' bind:change="onPwdChange" value="{{ password }}" placeholder="请输入口令" />
+  <i-button size="small" style='width: 80%; margin-top: 30px' open-type="getUserInfo" bindgetuserinfo="getUserInfo" type="primary"> 登录 </i-button>
 </view>
