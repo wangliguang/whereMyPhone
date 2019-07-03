@@ -20,10 +20,6 @@
       {
         "pagePath": "pages/scan/index",
         "text": "扫码"
-      },
-      {
-        "pagePath": "pages/my/index",
-        "text": "我的"
       }
     ]
   },

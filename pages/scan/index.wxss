@@ -4,3 +4,16 @@
   bottom: 0;
   width: 100%;
 }
+
+
+.cell {
+  width: 100vw;
+  padding: 20px;
+  display: flex;
+  margin-top: 10px;
+  flex-direction: column;
+  background-color: white;
+  border-bottom-width: 1px;
+  border-bottom-color: rgb(180, 180, 180);
+  border-bottom-style: solid;
+}

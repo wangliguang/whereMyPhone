@@ -12,7 +12,7 @@ Page({
 
   onGetPhone: function() {
     wx.scanCode({
-      onlyFromCamera: true,
+      onlyFromCamera: false,
       success: (data) => {
         this.savePhone(data.result);
       },
@@ -39,10 +39,15 @@ Page({
     
 
     query.save().then(res => {
+      wx.showToast({
+        title: '该测试机添加成功',
+        icon: 'none',
+      })
       this.onShow();
     }).catch(err => {
+      console.log(err);
       wx.showToast({
-        title: '',
+        title: err.code === 401 ? '已拥有该测试机' : err.error,
         icon: 'none',
       })
     })

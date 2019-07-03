@@ -8,13 +8,19 @@
   height: 100vh;
 }
 
+page {
+  background-color: rgb(245, 245, 245);
+}
+
 .cell {
   width: 100vw;
-  height: 80px;
+  padding: 20px;
   display: flex;
+  margin-top: 10px;
   flex-direction: column;
-  border-bottom-color: gray;
+  background-color: white;
   border-bottom-width: 1px;
+  border-bottom-color: rgb(180, 180, 180);
   border-bottom-style: solid;
 }
 
