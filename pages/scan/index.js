@@ -60,7 +60,7 @@ Page({
     query.set('id', objectId);
     query.set('owner', this.data.nickName)
     query.save().then(res => {
-      console.log(res);
+      this.onShow();
       wx.showToast({
         title: '已领取该设备',
         icon: 'none',
