@@ -56,8 +56,9 @@ Page({
 
   changeOwner: function(objectId) {
     const query = BMOB.Query('t_phone');
+    
     query.set('id', objectId);
-    query.set('owner', getApp().globalData.userInfo.nickName)
+    query.set('owner', this.data.nickName)
     query.save().then(res => {
       console.log(res);
       wx.showToast({
@@ -73,7 +74,7 @@ Page({
     const query = BMOB.Query('t_phone');
     query.set('model', deviceInfo.model);
     query.set('system', deviceInfo.system);
-    query.set('owner', getApp().globalData.userInfo.nickName);    
+    query.set('owner', this.data.nickName);    
 
     query.save().then(res => {
       wx.showToast({
@@ -105,7 +106,7 @@ Page({
       })
       return;
     } 
-    this.setData({ isLogin: true });
+    this.setData({ isLogin: true, nickName: userInfo.nickName });
     const query = BMOB.Query('t_phone');
     query.equalTo("owner", '==', userInfo.nickName || '');
     query.find().then(data => {
