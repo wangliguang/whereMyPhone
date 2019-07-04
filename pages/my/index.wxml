@@ -7,5 +7,13 @@
 </i-notice-bar>
 <view class="container">
   <canvas style="width: 200px; height: 200px;" canvas-id="myQrcode"></canvas>
+
+  <view style='margin-top: 20px; margin-bottom: 10px'>使用说明</view>
+  <view class='topMargin'>1. 用测试机，扫描【我的】里二维码,用于获取到设备的设备码(扫码注意事项见顶上的提示)</view>
+  <view class='topMargin'>2. 使用小程序中【扫码】功能扫描获取到的设备码</view>
+  <view class='topMargin'>3. 填写信息，点击提交便可以将设备添加到自己名下</view>
+  <view class='topMargin'>4. 如果设备已经添加，直接扫设备码便可直接将设备归到自己名下</view>
+  <view class='topMargin'>5. 有问题或有想添加的需求，找王立广</view>
+  
 </view>
 
