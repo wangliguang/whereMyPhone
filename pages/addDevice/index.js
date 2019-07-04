@@ -77,7 +77,9 @@ Page({
       wx.showToast({
         title: '修改成功',
         icon: 'none',
-      })
+        duration: 1000,
+      });
+      setTimeout(wx.navigateBack, 1000);
     }).catch(err => {
       console.error(err)
     })

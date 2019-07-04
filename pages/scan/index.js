@@ -61,6 +61,7 @@ Page({
         title: '领取成功',
         icon: 'none',
       })
+      this.onShow();
     }).catch(err => {
       console.error(err)
     })
