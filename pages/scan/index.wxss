@@ -10,7 +10,9 @@
   padding: 20px;
   display: flex;
   margin-top: 10px;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   background-color: white;
   border-bottom-width: 1px;
   border-bottom-color: rgb(180, 180, 180);

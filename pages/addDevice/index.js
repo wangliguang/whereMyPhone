@@ -11,11 +11,21 @@ Page({
     model: '',
     system: '',
     note: '',
+    uid: '',
+    nickName: '',
+    objectId: '',
   },
 
   onLoad: function(options) {
-    this.uid = options.uid;
-    this.nickName = wx.getStorageSync('userInfo').nickName;
+    this.setData({
+      platform: options.platform || '',
+      model: options.model || '',
+      system: options.system || '',
+      note: options.note || '',
+      uid: options.uid || '',
+      nickName: wx.getStorageSync('userInfo').nickName || '',
+      objectId: options.objectId || '',
+    });
   },
 
   onPlatformChange: function(e) {
@@ -48,16 +58,29 @@ Page({
       return;
     }
 
+    if (this.data.objectId) {
+      this.changeDeviceInfo();
+      return;
+    }
+    this.savePhone();
+  },
+
+  changeDeviceInfo: function (objectId) {
     const query = BMOB.Query('t_phone');
-    query.equalTo("uid", '==', this.uid);
-    query.find().then(result => {
-      console.log('result', result);
-      if (result.length != 0) {
-        this.changeOwner(result[0].objectId);
-        return;
-      }
-      this.savePhone();
-    });
+    query.set('id', this.data.objectId);
+    query.set("platform", String(this.data.platform));
+    query.set("model", String(this.data.model));
+    query.set("system", String(this.data.system));
+    query.set("note", String(this.data.note));
+    query.set('uid', this.data.uid);
+    query.save().then(res => {
+      wx.showToast({
+        title: '修改成功',
+        icon: 'none',
+      })
+    }).catch(err => {
+      console.error(err)
+    })
   },
 
   savePhone: function () {
@@ -66,8 +89,8 @@ Page({
     query.set("model", String(this.data.model));
     query.set("system", String(this.data.system));
     query.set("note", String(this.data.note));
-    query.set('uid', this.uid);
-    query.set("owner", this.nickName)
+    query.set('uid', this.data.uid);
+    query.set("owner", this.data.nickName)
     query.save().then(res => {
       wx.showToast({
         title: '该设备添加成功',

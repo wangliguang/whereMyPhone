@@ -14,8 +14,8 @@ Page({
     wx.scanCode({
       onlyFromCamera: false,
       success: (data) => {
-        const resultArr = data.result.split('=');
-        if (resultArr[0] != 'gg') {
+        const [ prefix, uid ] = data.result.split('=');
+        if (prefix != 'gg') {
           wx.showToast({
             title: '二维码格式错误',
             icon: 'none',
@@ -24,9 +24,8 @@ Page({
         }
 
         const query = BMOB.Query('t_phone');
-        query.equalTo("uid", '==', resultArr[1]);
+        query.equalTo("uid", '==', uid);
         query.find().then(result => {
-          console.log(result.length);
           if (result.length != 0) {
             if (result[0].owner == this.data.nickName) {
               wx.showToast({
@@ -40,7 +39,7 @@ Page({
           }
           
           wx.navigateTo({
-            url: `/pages/addDevice/index?uid=${resultArr[1]}`,
+            url: `/pages/addDevice/index?uid=${uid}`,
           })
         });
       },
@@ -54,7 +53,6 @@ Page({
   },
 
   changeOwner: function (objectId) {
-    console.log('77777');
     const query = BMOB.Query('t_phone');
     query.set('id', objectId);
     query.set('owner', this.data.nickName)
@@ -96,6 +94,14 @@ Page({
         title: err.message,
       })
     });
+  },
+
+  onEditDeviceInfo: function(e) {
+
+    const { uid, platform, model, system, note, objectid } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `/pages/addDevice/index?uid=${uid}&platform=${platform}&model=${model}&system=${system}&note=${note}&objectId=${objectid}`,
+    })
   },
 
   onPullDownRefresh: function () {

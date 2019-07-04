@@ -2,9 +2,26 @@
 <wxs src="../../utils/wxml.wxs" module="tools" />
 <view>
  <view class='cell' wx:for="{{dataArray}}" wx:key="index" wx:for-index="index"  wx:for-item="item" >
+  <view style="display: flex;flex-direction: column">
     <text>平台：{{item.platform}}</text>
     <text>型号：{{item.model}}</text>
     <text>系统：{{item.system}}</text>
+  </view>
+    
+
+  <i-icon 
+    bindtap='onEditDeviceInfo' 
+    data-platform='{{item.platform}}' 
+    data-model='{{item.model}}' 
+    data-system='{{item.system}}' 
+    data-note='{{item.note}}' 
+    data-uid='{{item.uid}}' 
+    data-objectid='{{item.objectId}}'
+    type="editor" 
+    size="30" 
+    color="#80848f"
+  />
+
  </view>
 </view>
 
