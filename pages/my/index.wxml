@@ -1,3 +1,10 @@
+<i-notice-bar>
+   <view>android设备使用系统自带浏览器扫码</view>
+    
+</i-notice-bar>
+<i-notice-bar>
+   <view>iOS设备使用相机扫码</view>
+</i-notice-bar>
 <view class="container">
   <canvas style="width: 200px; height: 200px;" canvas-id="myQrcode"></canvas>
 </view>

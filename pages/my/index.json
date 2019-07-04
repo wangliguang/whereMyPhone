@@ -1,4 +1,8 @@
 {
-  "navigationBarTitleText": "此机型二维码",
-  "usingComponents": {}
+  "navigationBarTitleText": "获取设备码",
+  "usingComponents": {
+    "i-button": "../../components/dist/button/index",
+    "i-modal": "../../components/dist/modal/index",
+    "i-notice-bar": "../../components/dist/notice-bar/index"
+  }
 }

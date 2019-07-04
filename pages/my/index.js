@@ -5,33 +5,23 @@ import drawQrcode from '../../utils/weapp.qrcode.esm.js'
 
 Page({
   data: {
-    
+    isShowTip: true,
+  },
+
+  onShow: function() {
+    this.setData({
+      isShowTip: true,
+    });
   },
   
   onLoad: function () {
     
-    const { model, system } = wx.getSystemInfoSync();
-
-    let deviceId = wx.getStorageSync('deviceId');
-    if (!deviceId) {
-      const curTimestamp = new Date().getTime();
-      wx.setStorageSync('deviceId', curTimestamp);
-      deviceId = curTimestamp;
-    }
-    
-    
-    const systemInfo = {
-      from: 'gg',
-      model: `${model}=${deviceId}`,
-      system,
-    }
-
     drawQrcode({
       width: 200,
       height: 200,
       canvasId: 'myQrcode',
       
-      text: JSON.stringify(systemInfo),
+      text: 'http://47.94.81.19:3000/stylesheets/index.html',
       image: {
         dx: 70,
         dy: 70,
@@ -39,6 +29,12 @@ Page({
         dHeight: 60
       }
     })
+  },
+
+  onCloseTips: function() {
+    this.setData({
+      isShowTip: false,
+    });
   },
   
 })

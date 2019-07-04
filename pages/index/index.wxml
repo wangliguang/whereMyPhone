@@ -6,6 +6,7 @@
     <text>型号：{{item.model}}</text>
     <text>系统：{{item.system}}</text>
     <text>持有：{{item.owner}}</text>
+    <text wx:if="{{item.note.length!=0}}">备注：{{item.note}}</text>
 
     <view class='line'/>
  </view>
