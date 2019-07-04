@@ -1,8 +1,8 @@
 <!--pages/my/index.wxml-->
 
 <i-input bind:change='onPlatformChange' value="{{ platform }}" title="平台" autofocus placeholder="平台" />
-<i-input bind:change='onModelChange' value="{{ model }}" title="型号" autofocus placeholder="机型" />
-<i-input bind:change='onSystemChange' value="{{ system }}" title="系统" autofocus placeholder="系统"/>
-<i-input bind:change='onNoteChange' value="{{ note }}" title="备注" autofocus placeholder="请开始你的表演"/>
+<i-input bind:change='onModelChange' value="{{ model }}" title="型号"  placeholder="机型" />
+<i-input bind:change='onSystemChange' value="{{ system }}" title="系统" placeholder="系统"/>
+<i-input bind:change='onNoteChange' value="{{ note }}" title="备注" placeholder="请开始你的表演"/>
 
 <i-button class='submitBtn' bind:click="onSubmit" type="primary">提交</i-button>
