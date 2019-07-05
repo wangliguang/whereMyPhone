@@ -17,13 +17,15 @@ Page({
   },
 
   onLoad: function(options) {
+    const userInfo = wx.getStorageSync('userInfo');
+
     this.setData({
       platform: options.platform || '',
       model: options.model || '',
       system: options.system || '',
       note: options.note || '',
       uid: options.uid || '',
-      nickName: wx.getStorageSync('userInfo').nickName || '',
+      nickName: (userInfo.realName && userInfo.realName.length != 0) ? userInfo.realName : userInfo.nickName,
       objectId: options.objectId || '',
     });
   },

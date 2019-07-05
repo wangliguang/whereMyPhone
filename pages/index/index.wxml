@@ -13,6 +13,7 @@
 </view>
 
 <view class='getUserInfo' wx:else>
+<i-input style='width: 70%; margin-bottom: 10px' bind:change="onRealNameChange" value="{{ realName }}" placeholder="请输入姓名" />
   <i-input style='width: 70%;' bind:change="onPwdChange" value="{{ password }}" placeholder="请输入口令" />
   <i-button size="small" style='width: 80%; margin-top: 30px' open-type="getUserInfo" bindgetuserinfo="getUserInfo" type="primary"> 登录 </i-button>
 </view>
