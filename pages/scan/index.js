@@ -82,7 +82,10 @@ Page({
       })
       return;
     } 
-    this.setData({ isLogin: true, nickName: userInfo.nickName });
+    this.setData({ 
+      isLogin: true, 
+      nickName: (userInfo.realName && userInfo.realName.length != 0) ? userInfo.realName : userInfo.nickName
+    });
     const query = BMOB.Query('t_phone');
     query.equalTo("owner", '==', userInfo.nickName || '');
     query.find().then(data => {
