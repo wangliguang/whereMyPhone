@@ -5,7 +5,10 @@
     "i-input": "../../components/dist/input/index",
     "i-button": "../../components/dist/button/index",
     "i-radio-group": "../../components/dist/radio-group/index",
-    "i-radio": "../../components/dist/radio/index"
+    "i-radio": "../../components/dist/radio/index",
+    "wux-cell-group": "../../components/wux/cell-group/index",
+    "wux-cell": "../../components/wux/cell/index",
+    "wux-select": "../../components/wux/select/index"
     
   }
 }

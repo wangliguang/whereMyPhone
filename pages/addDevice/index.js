@@ -1,13 +1,13 @@
 // pages/my/index.js
 import BMOB from '../../utils/bmob.js';
-
+import { $wuxSelect } from '../../components/wux/index'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    platform: '',
+    platform: 'iOS',
     model: '',
     system: '',
     note: '',
@@ -29,9 +29,19 @@ Page({
   },
 
   onPlatformChange: function(e) {
-    this.setData({
-      platform: e.detail.detail.value,
-    });
+    
+    $wuxSelect('#wux-selectPlatform').open({
+      value: this.data.platform,
+      options: [
+        'iOS',
+        'android',
+      ],
+      onConfirm: (value, index, options) => {
+        this.setData({
+          platform: value,
+        })
+      },
+    })
   },
   onModelChange: function (e) {
     this.setData({
